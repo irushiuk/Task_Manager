@@ -3,7 +3,10 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import cors from "cors"; 
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
+
+const routes = ""
 
 dotenv.config();
 
@@ -32,6 +35,7 @@ app.use(express.json())
 app.use(express.urlencoded)
 
 app.use(cookieParser())
+app.use(morgan("dev"))
 
 
 
