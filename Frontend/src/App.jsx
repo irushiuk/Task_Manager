@@ -6,9 +6,10 @@ import TaskDetails from './Pages/TaskDetails';
 import Tasks from './Pages/Tasks';
 import Trash from './Pages/Trash';
 import Users from './Pages/Users';
+import { useSelector } from 'react-redux';
 
 function Layout() {
-  const user =""
+  const {user} = useSelector((state) => state.auth);
   const location = useLocation();
 
   return user ?(
@@ -35,7 +36,7 @@ function App() {
     <main className='w-full min-h-screen bg-[#f3f4f6]'>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route index path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/completed/:status" element={<Tasks />} />
