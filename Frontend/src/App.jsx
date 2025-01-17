@@ -1,35 +1,91 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import {Toaster} from 'sonner';
+import Dashboard from './Pages/Dashboard';
+import Login from './Pages/Login';
+import TaskDetails from './Pages/TaskDetails';
+import Tasks from './Pages/Tasks';
+import Trash from './Pages/Trash';
+import Users from './Pages/Users';
 
-function App() {
-  const [count, setCount] = useState(0)
+function Layout() {
+  const user =""
+  const location = useLocation();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  return user ?(
+    <div className='w-full h-screen flex flex-col md:flex-row'>
+      <div className='w-1/5 h-screen bg-white sticky top-0 hidden md:block'>
+      {/* <Sidebar /> */}
+      </div> 
+      {/* <MobileSidebar /> */}
+      <div className="flex-1 overflow-y-auto">
+        {/* <Navbar /> */}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='p-4 2xl:px-10'>
+        <Outlet />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      
+    </div>
+  ):(
+    <Navigate to="/log-in" state={{from: location}} replace/>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <main className='w-full min-h-screen bg-[#f3f4f6]'>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/completed/:status" element={<Tasks />} />
+          <Route path="/in-progress/:status" element={<Tasks />} />
+          <Route path="/todo/:status" element={<Tasks />} />
+          <Route path="/team" element={<Users />} />
+          <Route path="/trashed" element={<Trash />} />
+          <Route path="/task/:id" element={<TaskDetails />} />
+        </Route>
+        <Route path="/log-in" element={<Login />} />
+      </Routes>
+      <Toaster richColors />
+
+    </main>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import MainPage from './Pages/Home/MainPage';
+// // import MainPage from './Pages/MainPage';
+// // import LoginPage from './Pages/LoginPage';
+// // import OtherPage from './Pages/OtherPage';
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<MainPage />} />
+//         {/* <Route path="/login" element={<LoginPage />} />
+//         <Route path="/other" element={<OtherPage />} /> */}
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
