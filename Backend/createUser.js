@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs';
-
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from './models/user.js';
@@ -13,13 +12,14 @@ const createUser = async () => {
     await connectDB();
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash('password123', 10);
+    // const hashedPassword = await bcrypt.hash('qwerty', 10);
+    const hashedPassword = 'abcd'
     console.log('Hashed Password:', hashedPassword);
 
     // Create a new user object
     const user = new User({
-      name: 'Test User',
-      email: 'user1@gmail.com',
+      name: 'abcd',
+      email: 'abcd@gmail.com',
       password: hashedPassword,
     });
 

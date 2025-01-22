@@ -7,6 +7,8 @@ import Tasks from './Pages/Tasks';
 import Trash from './Pages/Trash';
 import Users from './Pages/Users';
 import { useSelector } from 'react-redux';
+import Sidebar from './Components/Sidebar';
+import Navbar from './Components/Navbar';
 
 function Layout() {
   const {user} = useSelector((state) => state.auth);
@@ -15,16 +17,15 @@ function Layout() {
   return user ?(
     <div className='w-full h-screen flex flex-col md:flex-row'>
       <div className='w-1/5 h-screen bg-white sticky top-0 hidden md:block'>
-      {/* <Sidebar /> */}
+      <Sidebar />
       </div> 
       {/* <MobileSidebar /> */}
       <div className="flex-1 overflow-y-auto">
-        {/* <Navbar /> */}
-      </div>
-      <div className='p-4 2xl:px-10'>
+        <Navbar />
+        <div className='p-4 2xl:px-10'>
         <Outlet />
+        </div>
       </div>
-      
     </div>
   ):(
     <Navigate to="/log-in" state={{from: location}} replace/>
@@ -36,7 +37,7 @@ function App() {
     <main className='w-full min-h-screen bg-[#f3f4f6]'>
       <Routes>
         <Route element={<Layout />}>
-          <Route index path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/completed/:status" element={<Tasks />} />
