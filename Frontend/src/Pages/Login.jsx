@@ -5,8 +5,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import TextBox from '../Components/TextBox';
 import Button from '../Components/Button';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
+
+  const {user} = useSelector((state) => state.auth);
+
+
   const {
     register,
     handleSubmit,
@@ -19,6 +24,7 @@ const Login = () => {
   // Function to handle form submission
   
   const submitHandler = async (data) => {
+
     setLoading(true); // Start loading
     try {
       const response = await axios.post(
@@ -38,6 +44,13 @@ const Login = () => {
       setLoading(false); // Stop loading
     }
   };
+
+//     console.log("submit")
+//   }
+//   console.log(user);
+//   useEffect(() => {
+//     user && navigate("/dashboard");
+//   }, [user]
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center flex-col lg:flex-row bg-[#f3f4f6]">
