@@ -6,24 +6,26 @@ import TaskDetails from './Pages/TaskDetails';
 import Tasks from './Pages/Tasks';
 import Trash from './Pages/Trash';
 import Users from './Pages/Users';
+import { useSelector } from 'react-redux';
+import Sidebar from './Components/Sidebar';
+import Navbar from './Components/Navbar';
 
 function Layout() {
-  const user =""
+  const {user} = useSelector((state) => state.auth);
   const location = useLocation();
 
   return user ?(
     <div className='w-full h-screen flex flex-col md:flex-row'>
       <div className='w-1/5 h-screen bg-white sticky top-0 hidden md:block'>
-      {/* <Sidebar /> */}
+      <Sidebar />
       </div> 
       {/* <MobileSidebar /> */}
       <div className="flex-1 overflow-y-auto">
-        {/* <Navbar /> */}
-      </div>
-      <div className='p-4 2xl:px-10'>
+        <Navbar />
+        <div className='p-4 2xl:px-10'>
         <Outlet />
+        </div>
       </div>
-      
     </div>
   ):(
     <Navigate to="/log-in" state={{from: location}} replace/>

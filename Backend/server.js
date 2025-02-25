@@ -1,42 +1,39 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
-import cors from "cors"; 
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
-
-
-const routes = ""
+import userRoutes from './routes/userRoutes.js';  // Ensure this import is present
 
 dotenv.config();
 
-const app = express();
-
-app.get("/",(req,res)=>{
-    res.send("Server is ready");
-})
-
-//Calling the MONGO_URL
-console.log(process.env.MONGO_URL);
-
-app.listen(5000, () =>{
-    connectDB();
-    console.log("Server started at port 5000")
-});
+const app = express();  // Make sure this is declared first
 
 app.use(
-    cors({
-        methods: ["GET","POST","PUT","DELETE"],
-        credentials: true,
-    })
-)
+  cors({
+    origin: "http://localhost:3000", // React app's URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // Allow credentials
+  })
+);
 
-app.use(express.json())
-app.use(express.urlencoded)
+// Add middleware after initializing the app
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(morgan("dev"));
 
-app.use(cookieParser())
-app.use(morgan("dev"))
+// Routes
+app.use("/api/auth", userRoutes); // Now it's safe to use app
 
+// Test route
+app.get("/", (req, res) => {
+  res.send("Server is ready");
+});
 
-
-//x45Hxze6tUVEN3Cs
+// Connect to DB and start the server
+app.listen(5000, () => {
+  connectDB();
+  console.log("Server started at port 5000");
+});
