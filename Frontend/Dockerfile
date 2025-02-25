@@ -1,20 +1,20 @@
 # Dockerfile for React client
 
 # Build react client
-FROM node:18.9.1
+FROM node:20-alpine
 
 # Working directory be app
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
 
 ###  Installing dependencies
 
-RUN npm install --silent
+RUN npm install
 
 # copy local files to app folder
 COPY . .
 
-EXPOSE 5000
+EXPOSE 3000
 
 CMD ["npm","run","dev"]
