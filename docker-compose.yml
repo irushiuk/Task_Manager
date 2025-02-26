@@ -1,11 +1,12 @@
 services:
   mongodb:
-    image: mongo
+    image: wishydocker/mongo:latest 
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
   backend:
+    image: wishydocker/backend:latest 
     build: ./Backend
     ports:
       - "5000:5000"
@@ -15,6 +16,7 @@ services:
       - mongodb
 
   frontend:
+    image: wishydocker/frontend:latest
     build: ./Frontend
     ports:
       - "3000:3000"
