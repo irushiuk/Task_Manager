@@ -61,7 +61,7 @@ const Sidebar = () => {
         return (
             <Link 
                 to={el.link} 
-                onClick={closeSidebar}
+                // onClick={closeSidebar}
                 className={
                     clsx(
                         "w-full lg:w-3/4 flex gap-2 px-3 py-2 rounded-full items-center text-gray-800 text-base hover:bg-[#2564ed2d]", 

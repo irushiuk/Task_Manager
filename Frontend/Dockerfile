@@ -1,20 +1,20 @@
-# Dockerfile for React client
-
-# Build react client
+# Use Node 20 Alpine as the base image
 FROM node:20-alpine
 
-# Working directory be app
+# Set the working directory inside the container
 WORKDIR /app
 
-COPY package.json .
+# Copy package.json and package-lock.json (or yarn.lock) for dependency installation
+COPY package*.json ./
 
-###  Installing dependencies
+# Install dependencies
+RUN npm ci
 
-RUN npm install
-
-# copy local files to app folder
+# Copy the rest of your project files into the container
 COPY . .
 
+# Expose the port that Vite runs on (default is 3000)
 EXPOSE 3000
 
-CMD ["npm","run","dev"]
+# Start the Vite development server
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

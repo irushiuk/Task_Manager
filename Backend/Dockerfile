@@ -5,10 +5,14 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy the rest of the application code
-COPY . .
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
+
+# Copy the source code
+COPY . .
+
 # Expose the port the app runs on
 EXPOSE 5000
 
