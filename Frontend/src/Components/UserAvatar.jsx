@@ -5,6 +5,8 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInitials } from "../utils";
+import Cookies from "js-cookie";
+import { clearUser } from "../redux/slices/authSlice";
 
 const UserAvatar = () => {
     const [open, setOpen] = useState(false);
@@ -13,7 +15,9 @@ const UserAvatar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = () => {
-        console.log("logout");
+        Cookies.remove("token"); // Remove token from cookies
+        dispatch(clearUser()); // Clear user data from Redux state
+        navigate("/login"); // Redirect to login page
     };
     return (
         <div>

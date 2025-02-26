@@ -19,7 +19,7 @@ const linkData = [
     },
     {
         label: "Tasks",
-        link: "tasks",
+        link: "/tasks",
         icon: <FaTasks />,
     },
     {
@@ -65,7 +65,8 @@ const Sidebar = () => {
                 className={
                     clsx(
                         "w-full lg:w-3/4 flex gap-2 px-3 py-2 rounded-full items-center text-gray-800 text-base hover:bg-[#2564ed2d]", 
-                        path === el.link.split("/")[0] 
+                        path === el.link.split("/")[0]
+                        //location.pathname === el.link 
                         ? "bg-blue-700 text-neutral-100" 
                         : ""
                     )
