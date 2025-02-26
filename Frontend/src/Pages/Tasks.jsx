@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, toggleTaskCompletion } from "../redux/slices/tasksSlice"; 
 
 const Tasks = () => {
+
     const [task, setTask] = useState("");
     const dispatch = useDispatch();
     const taskList = useSelector((state) => state.tasks.taskList);
