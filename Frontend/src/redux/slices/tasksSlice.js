@@ -7,10 +7,14 @@ const tasksSlice = createSlice({
     },
     reducers: {
         addTask: (state, action) => {
-            state.taskList.push(action.payload);
+            state.taskList.push({ text: action.payload, completed: false });
+        },
+        toggleTaskCompletion: (state, action) => {
+            const index = action.payload;
+            state.taskList[index].completed = !state.taskList[index].completed;
         },
     },
 });
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, toggleTaskCompletion } = tasksSlice.actions;
 export default tasksSlice.reducer;

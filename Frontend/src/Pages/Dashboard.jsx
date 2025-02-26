@@ -1,8 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTaskCompletion } from "../redux/slices/tasksSlice";
 
 const Dashboard = () => {
-    const taskList = useSelector((state) => state.tasks.taskList); // ✅ Get tasks from Redux
+    const dispatch = useDispatch();
+    const taskList = useSelector((state) => state.tasks.taskList);
 
     return (
         <div className="p-6">
@@ -13,7 +15,17 @@ const Dashboard = () => {
                     <p>No tasks added yet.</p>
                 ) : (
                     taskList.map((t, index) => (
-                        <li key={index} className="border-b py-2">{t}</li>
+                        <li key={index} className="border-b py-2 flex items-center">
+                            <input 
+                                type="checkbox" 
+                                checked={t.completed}
+                                onChange={() => dispatch(toggleTaskCompletion(index))}
+                                className="mr-2"
+                            />
+                            <span className={t.completed ? "line-through text-gray-500" : ""}>
+                                {t.text}
+                            </span>
+                        </li>
                     ))
                 )}
             </ul>

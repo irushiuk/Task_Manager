@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../redux/slices/tasksSlice"; // ✅ Import Redux action
+import { addTask, toggleTaskCompletion } from "../redux/slices/tasksSlice"; 
 
 const Tasks = () => {
     const [task, setTask] = useState("");
     const dispatch = useDispatch();
-    const taskList = useSelector((state) => state.tasks.taskList); // ✅ Get tasks from Redux
+    const taskList = useSelector((state) => state.tasks.taskList);
 
     const handleAddTask = () => {
         if (task.trim() !== "") {
-            dispatch(addTask(task)); // ✅ Dispatch task to Redux
+            dispatch(addTask(task)); // ✅ Dispatch action to add task
             setTask("");
         }
     };
@@ -33,9 +33,23 @@ const Tasks = () => {
                 </button>
             </div>
             <ul className="mt-4">
-                {taskList.map((t, index) => (
-                    <li key={index} className="border-b py-2">{t}</li>
-                ))}
+                {taskList.length === 0 ? (
+                    <p>No tasks added yet.</p>
+                ) : (
+                    taskList.map((t, index) => (
+                        <li key={index} className="border-b py-2 flex items-center">
+                            <input 
+                                type="checkbox" 
+                                checked={t.completed}
+                                onChange={() => dispatch(toggleTaskCompletion(index))}
+                                className="mr-2"
+                            />
+                            <span className={t.completed ? "line-through text-gray-500" : ""}>
+                                {t.text}
+                            </span>
+                        </li>
+                    ))
+                )}
             </ul>
         </div>
     );
