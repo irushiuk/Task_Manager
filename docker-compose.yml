@@ -1,6 +1,5 @@
 services:
   mongodb:
-    # image: mongo:latest 
     image: wishydocker/mongodb:latest 
     ports:
       - "27017:27017"
