@@ -1,11 +1,12 @@
 services:
   mongodb:
-    image: mongo
+    image: irushiuk/mongodb:latest 
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
   backend:
+    image: irushiuk/backend:latest 
     build: ./Backend
     ports:
       - "5000:5000"
@@ -15,6 +16,7 @@ services:
       - mongodb
 
   frontend:
+    image: irushiuk/frontend:latest
     build: ./Frontend
     ports:
       - "3000:3000"
