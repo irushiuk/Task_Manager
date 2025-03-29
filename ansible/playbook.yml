@@ -1,0 +1,28 @@
+---
+- hosts: webserver
+  become: yes
+  vars_files:
+    - vars/vault.yml  # Encrypted credentials
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Login to Docker Hub
+      docker_login:
+        username: "{{ irushiuk }}"
+        password: "{{ dockerhub_password }}"
+        no_log: true
+
+    - name: Run containers
+      docker_compose:
+        project_src: /tmp
+        files:
+          - docker-compose.yml
