@@ -14,7 +14,7 @@ provider "aws" {
 # Create a key pair for SSH access (or use an existing one)
 resource "aws_key_pair" "jenkins_ssh_key" {
   key_name   = "jenkins-qrgen-key"
-  public_key = file("/home/cooper/.ssh/id_rsa.pub")  # Use existing pubkey
+  public_key = file("/Users/Irushi/.ssh/id_rsa.pub")  # Use existing pubkey
 }
 
 resource "aws_instance" "qrgen_test" {
