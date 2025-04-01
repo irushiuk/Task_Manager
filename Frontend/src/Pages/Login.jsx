@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import TextBox from '../Components/TextBox';
 import Button from '../Components/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/slices/authSlice';
- // Import the Redux action
+import { setUser } from '../redux/slices/authSlice'; // Import the Redux action
 
 const Login = () => {
     const { user } = useSelector((state) => state.auth);
@@ -31,10 +29,14 @@ const Login = () => {
                 { withCredentials: true }
             );
             if (response.status === 200) {
-                // alert('Login successful!');
-                Cookies.set('token', response.data.token, { expires: 30, secure: true }); // Store token in cookies
-                dispatch(setUser(response.data.user)); // Update Redux state
-                navigate('/dashboard'); // Redirect to dashboard
+                // Store token in local storage
+                localStorage.setItem('token', response.data.token);
+                
+                // Update Redux state
+                dispatch(setUser(response.data.user));
+
+                // Redirect to dashboard
+                navigate('/tasks');
             }
         } catch (error) {
             console.error('Login failed:', error.response?.data?.message || error.message);
@@ -47,7 +49,7 @@ const Login = () => {
     // Redirect if the user is already logged in
     useEffect(() => {
         if (user) {
-            navigate('/dashboard');
+            navigate('/tasks');
         }
     }, [user, navigate]);
 
@@ -110,6 +112,16 @@ const Login = () => {
                                 } text-white rounded-full`}
                                 disabled={loading}
                             />
+
+                            <p className="text-center text-sm text-gray-700">
+                                    Don't have an account?{' '}
+                                    <span
+                                        className="text-blue-600 hover:underline cursor-pointer"
+                                        onClick={() => navigate('/signup')}
+                                    >
+                                        Sign up here
+                                    </span>
+                             </p>
                         </div>
                     </form>
                 </div>

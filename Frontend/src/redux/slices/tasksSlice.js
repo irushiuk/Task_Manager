@@ -6,15 +6,26 @@ const tasksSlice = createSlice({
         taskList: [],
     },
     reducers: {
-        addTask: (state, action) => {
-            state.taskList.push({ text: action.payload, completed: false });
+        setTasks: (state, action) => {
+            state.taskList = action.payload;
         },
-        toggleTaskCompletion: (state, action) => {
-            const index = action.payload;
-            state.taskList[index].completed = !state.taskList[index].completed;
+        addTask: (state, action) => {
+            state.taskList.push(action.payload);
+        },
+        startTask: (state, action) => {
+            const task = state.taskList.find((t) => t._id === action.payload);
+            if (task) {
+                task.stage = "in progress";
+            }
+        },
+        completeTask: (state, action) => {
+            const task = state.taskList.find((t) => t._id === action.payload);
+            if (task) {
+                task.stage = "completed";
+            }
         },
     },
 });
 
-export const { addTask, toggleTaskCompletion } = tasksSlice.actions;
+export const { setTasks, addTask, startTask, completeTask } = tasksSlice.actions;
 export default tasksSlice.reducer;

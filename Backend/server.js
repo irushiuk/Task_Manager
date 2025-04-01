@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import userRoutes from './routes/userRoutes.js';  // Ensure this import is present
+import taskRoutes from './routes/taskRoutes.js'
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/auth", userRoutes); // Now it's safe to use app
+app.use("/api/tasks", taskRoutes);
 
 // Test route
 app.get("/", (req, res) => {
