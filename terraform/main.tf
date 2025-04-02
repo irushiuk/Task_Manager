@@ -29,13 +29,13 @@ resource "aws_instance" "qrgen_test" {
   }
 
   tags = {
-    Name = "qrgenTest30"
+    Name = "taskflowtest2"
   }
 }
 
 # Security group to allow necessary ports
 resource "aws_security_group" "qrgen_sg" {
-  name        = "qrgen-allow-ports"
+  name        = "taskflow-allow-ports"
   description = "Allow access to QRGen application ports"
 
   # SSH access
@@ -46,7 +46,7 @@ resource "aws_security_group" "qrgen_sg" {
     cidr_blocks = ["0.0.0.0/0"]  # Restrict to your Jenkins IP in production!
   }
 
-  # Frontend access (port 5000)
+  # Backend access (port 5000)
   ingress {
     from_port   = 5000
     to_port     = 5000
@@ -54,7 +54,7 @@ resource "aws_security_group" "qrgen_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Backend access (port 3000)
+  # Frontend access (port 3000)
   ingress {
     from_port   = 3000
     to_port     = 3000
@@ -79,7 +79,7 @@ resource "aws_security_group" "qrgen_sg" {
   }
 
   tags = {
-    Name = "qrgen-ports-access"
+    Name = "taskflow-ports-access"
   }
 }
 
