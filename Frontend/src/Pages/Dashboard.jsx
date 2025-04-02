@@ -61,7 +61,7 @@ const Dashboard = () => {
                             <span>{task.title} ({task.stage})</span>
                             <button 
                                 onClick={() => handleUpdateTask(task._id, "in progress")}
-                                className="bg-pink-600 text-white px-3 py-1 rounded">
+                                className="bg-pink-700 text-white px-3 py-1 rounded">
                                 Start Task
                             </button>
                         </li>
