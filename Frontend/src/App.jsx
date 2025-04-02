@@ -9,6 +9,7 @@ import Users from './Pages/Users';
 import { useSelector } from 'react-redux';
 import Sidebar from './Components/Sidebar';
 import Navbar from './Components/Navbar';
+import Signup from './Pages/SignUp';
 
 function Layout() {
   const {user} = useSelector((state) => state.auth);
@@ -48,6 +49,7 @@ function App() {
           <Route path="/task/:id" element={<TaskDetails />} />
         </Route>
         <Route path="/log-in" element={<Login />} />
+        <Route path="/signup" element={<Signup/>} />
       </Routes>
       <Toaster richColors />
 

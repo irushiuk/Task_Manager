@@ -14,11 +14,38 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const submitHandler = async (data) => {
-    console.log('Signup Data:', data);
-    // Implement your signup logic here
-    navigate('/dashboard'); // Redirect to the dashboard after successful signup
+    if (data.password !== data.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+  
+      const result = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(result.message || "Signup failed");
+      }
+  
+      alert("Signup successful! Redirecting to login...");
+      navigate("/log-in"); // Redirect to login after success
+    } catch (error) {
+      alert(error.message);
+    }
   };
-
+  
+//signup comment
   return (
     <div className='w-full min-h-screen flex items-center justify-center flex-col lg:flex-row bg-[#f3f4f6]'>
       <div className='w-full md:w-auto flex gap-0 md:gap-40 flex-col md:flex-row items-center justify-center'>
